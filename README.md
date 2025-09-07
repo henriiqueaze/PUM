@@ -1,4 +1,4 @@
-<h1>PUM - Plataforma Universal de Monitoria</h1>
+<h1>Plataforma Universal de Monitoria</h1>
 
   <p>A <strong>Plataforma Universal de Monitoria (PUM)</strong> é um sistema em desenvolvimento para o gerenciamento eficiente de monitorias acadêmicas, integrando alunos, monitores e instituições de ensino. O objetivo do projeto é otimizar a comunicação e o acompanhamento das atividades de monitoria, tornando os processos educacionais mais ágeis e organizados.</p>
 
