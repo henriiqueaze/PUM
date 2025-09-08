@@ -1,6 +1,6 @@
 package com.PUM.transfer.DTOs;
 
-import com.PUM.entities.Course;
+import com.PUM.model.entities.Course;
 
 public class StudentDTO {
 

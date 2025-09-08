@@ -1,10 +1,12 @@
 package com.PUM.services;
 
 import com.PUM.exceptions.IdNotFoundException;
+import com.PUM.exceptions.MandatoryValuesNotFilledInException;
 import com.PUM.infra.repositories.StudentRepository;
 import com.PUM.mapper.Mapper;
-import com.PUM.entities.Student;
+import com.PUM.model.entities.Student;
 import com.PUM.transfer.DTOs.StudentDTO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,8 @@ public class StudentService {
     }
 
     public StudentDTO postStudent(StudentDTO student) {
+        validateFields(student);
+
         var entity = Mapper.parseObject(student, Student.class);
         repository.save(entity);
 
@@ -34,6 +38,8 @@ public class StudentService {
     }
 
     public StudentDTO putStudent(StudentDTO student) {
+        validateFields(student);
+
         var entity = repository.findById(student.getId()).orElseThrow(() -> new IdNotFoundException("Student not found!"));
         Mapper.mapNonNullFields(student, entity);
 
@@ -52,5 +58,11 @@ public class StudentService {
     public void deleteStudent(Long id) {
         var entity = repository.findById(id).orElseThrow(() -> new IdNotFoundException("Student not found!"));
         repository.delete(entity);
+    }
+
+    private void validateFields(StudentDTO studentDTO) {
+        if (StringUtils.isBlank(studentDTO.getName()) || StringUtils.isBlank(studentDTO.getAcademicEmail()) || StringUtils.isBlank(studentDTO.getCpf()) || StringUtils.isBlank(studentDTO.getRegistrationNumber())) {
+            throw new MandatoryValuesNotFilledInException("Mandatory fields not filled in!");
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.PUM.entities;
+package com.PUM.model.entities;
 
 import jakarta.persistence.*;
 

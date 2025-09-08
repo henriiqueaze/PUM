@@ -16,4 +16,10 @@ public class RestExceptionHandler {
         RestErrorMessage threatMessage = new RestErrorMessage(LocalDateTime.now(), HttpStatus.NOT_FOUND, exception.getMessage(), exception.getLocalizedMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(threatMessage);
     }
+
+    @ExceptionHandler(MandatoryValuesNotFilledInException.class)
+    private ResponseEntity<RestErrorMessage> mandatoryValuesNotFilledInExceptionHandler(MandatoryValuesNotFilledInException exception, HttpServletRequest request) {
+        RestErrorMessage threatMessage = new RestErrorMessage(LocalDateTime.now(), HttpStatus.BAD_REQUEST, exception.getMessage(), exception.getLocalizedMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(threatMessage);
+    }
 }

@@ -1,6 +1,6 @@
 package com.PUM.transfer.DTOs;
 
-import com.PUM.entities.Coordinator;
+import com.PUM.model.entities.Coordinator;
 
 public class CourseDTO {
 

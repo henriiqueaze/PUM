@@ -1,6 +1,6 @@
 package com.PUM.infra.repositories;
 
-import com.PUM.entities.Student;
+import com.PUM.model.entities.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
