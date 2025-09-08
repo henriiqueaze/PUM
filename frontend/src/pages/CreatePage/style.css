@@ -1,0 +1,43 @@
+.create-page-main {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--background-main);
+}
+
+.lateral-menu {
+    height: 100vh;
+    width: 5vw;
+
+    background-image: linear-gradient(to bottom,
+            var(--dark-cards) 70%,
+            color-mix(in srgb, var(--dark-cards) 50%, var(--dark-background)) 95%,
+            var(--dark-background) 100%);
+
+}
+
+.form-content {
+    width: 95vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.lateral-canva {
+    width: 40vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lateral-canva img {
+    width: 65%;
+}
+
+.main-form {
+    width: 40vw;
+    height: 80vh;
+    background-color: antiquewhite;
+}
