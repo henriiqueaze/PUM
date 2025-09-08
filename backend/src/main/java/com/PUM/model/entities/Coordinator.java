@@ -1,5 +1,6 @@
 package com.PUM.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -12,6 +13,9 @@ public class Coordinator {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String name;
+
     @Column(name = "academic_email", nullable = false)
     private String academicEmail;
 
@@ -19,10 +23,19 @@ public class Coordinator {
     private String cpf;
 
     //lista de cursos que o coordenador gerencia
-    @OneToMany(mappedBy = "coordinator", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "coordinator", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Course> courses;
 
     public Coordinator() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Long getId() {

@@ -8,6 +8,8 @@ public class CoordinatorDTO {
 
     private Long id;
 
+    private String name;
+
     private String academicEmail;
 
     private String cpf;
@@ -23,6 +25,14 @@ public class CoordinatorDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAcademicEmail() {

@@ -3,9 +3,12 @@ package com.PUM.services;
 import com.PUM.exceptions.IdNotFoundException;
 import com.PUM.exceptions.MandatoryValuesNotFilledInException;
 import com.PUM.infra.repositories.CourseRepository;
+import com.PUM.infra.repositories.StudentRepository;
 import com.PUM.mapper.Mapper;
 import com.PUM.model.entities.Course;
+import com.PUM.model.entities.Student;
 import com.PUM.transfer.DTOs.CourseDTO;
+import jakarta.transaction.Transactional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,9 @@ public class CourseService {
 
     @Autowired
     private CourseRepository repository;
+
+    @Autowired
+    private StudentRepository studentRepository;
 
     public CourseDTO getCourseById(Long id) {
         var entity = repository.findById(id).orElseThrow(() -> new IdNotFoundException("Course not found!"));
@@ -53,9 +59,21 @@ public class CourseService {
         return Mapper.parseObject(entity, CourseDTO.class);
     }
 
+    @Transactional
     public void deleteCourse(Long id) {
-        var entity = repository.findById(id).orElseThrow(() -> new IdNotFoundException("Course not found!"));
-        repository.delete(entity);
+        var course = repository.findById(id).orElseThrow(() -> new IdNotFoundException("Course not found!"));
+
+        List<Student> students = studentRepository.findByCourse(course);
+        for (Student student : students) {
+            student.setCourse(null);
+        }
+        studentRepository.saveAll(students);
+
+        if (course.getCoordinator() != null) {
+            course.getCoordinator().getCourses().remove(course);
+        }
+
+        repository.delete(course);
     }
 
     private void validateFields(CourseDTO courseDTO) {

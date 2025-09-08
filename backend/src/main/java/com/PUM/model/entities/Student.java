@@ -22,7 +22,7 @@ public class Student {
     @Column(nullable = false)
     private String cpf;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "course_id")
     private Course course;
 

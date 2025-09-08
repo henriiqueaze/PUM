@@ -6,6 +6,7 @@ import com.PUM.infra.repositories.StudentRepository;
 import com.PUM.mapper.Mapper;
 import com.PUM.model.entities.Student;
 import com.PUM.transfer.DTOs.StudentDTO;
+import jakarta.transaction.Transactional;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,9 +56,14 @@ public class StudentService {
         return Mapper.parseObject(entity, StudentDTO.class);
     }
 
+    @Transactional
     public void deleteStudent(Long id) {
-        var entity = repository.findById(id).orElseThrow(() -> new IdNotFoundException("Student not found!"));
-        repository.delete(entity);
+        Student student = repository.findById(id).orElseThrow(() -> new IdNotFoundException("Student not found!"));
+
+        student.setCourse(null);
+        repository.save(student);
+
+        repository.delete(student);
     }
 
     private void validateFields(StudentDTO studentDTO) {

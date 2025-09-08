@@ -1,5 +1,6 @@
 package com.PUM.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,8 +15,9 @@ public class Course {
     private String name;
 
     //cria a coluna coordinator_id no table course_db
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "coordinator_id") //nome da coluna fk no banco de dados
+    @JsonBackReference
     private Coordinator coordinator;
 
     public Course() {
