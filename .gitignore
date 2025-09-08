@@ -1,0 +1,48 @@
+# ===============================
+#     GENERAL FILES TO IGNORE
+# ===============================
+HELP.md
+.env
+*.log
+
+# ===============================
+#     SPRING TOOL SUITE (STS)
+# ===============================
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# ===============================
+#     INTELLIJ IDEA
+# ===============================
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# ===============================
+#     NETBEANS
+# ===============================
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+nb-gradle/
+
+# ===============================
+#     VISUAL STUDIO CODE
+# ===============================
+.vscode/
+
+# ===============================
+#     MAVEN / GRADLE OUTPUT
+# ===============================
+target/
+build/
+
+# Ignora relatórios de teste do Maven
+surefire-reports/
