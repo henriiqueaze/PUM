@@ -1,6 +1,6 @@
 package com.PUM.services;
 
-import com.PUM.controller.CourseController;
+import com.PUM.controllers.CourseController;
 import com.PUM.exceptions.IdNotFoundException;
 import com.PUM.exceptions.MandatoryValuesNotFilledInException;
 import com.PUM.infra.repositories.CourseRepository;

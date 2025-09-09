@@ -1,4 +1,4 @@
-package com.PUM.controller;
+package com.PUM.controllers;
 
 import com.PUM.services.CoordinatorService;
 import com.PUM.transfer.DTOs.CoordinatorDTO;
