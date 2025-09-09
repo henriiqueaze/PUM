@@ -1,10 +1,11 @@
 package com.PUM.transfer.DTOs;
 
 import com.PUM.model.entities.Course;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.List;
 
-public class CoordinatorDTO {
+public class CoordinatorDTO extends RepresentationModel<CoordinatorDTO> {
 
     private Long id;
 

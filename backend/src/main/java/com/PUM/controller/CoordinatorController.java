@@ -3,6 +3,11 @@ package com.PUM.controller;
 import com.PUM.services.CoordinatorService;
 import com.PUM.transfer.DTOs.CoordinatorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +27,11 @@ public class CoordinatorController {
     }
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_YAML_VALUE, MediaType.APPLICATION_XML_VALUE})
-    public List<CoordinatorDTO> getAllCoordinators() {
-        return service.getAllCoordinators();
+    public ResponseEntity<PagedModel<EntityModel<CoordinatorDTO>>> getAllCoordinators(@RequestParam(value = "page", defaultValue = "0") Integer page, @RequestParam(value = "size", defaultValue = "12") Integer size, @RequestParam(value = "direction", defaultValue = "asc") String direction) {
+        var sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortDirection, "name"));
+
+        return ResponseEntity.ok(service.getAllCoordinators(pageable));
     }
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_YAML_VALUE, MediaType.APPLICATION_XML_VALUE}, consumes  = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_YAML_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -42,7 +50,7 @@ public class CoordinatorController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteCourse(@PathVariable Long id) {
+    public ResponseEntity<?> deleteCoordinator(@PathVariable Long id) {
         service.deleteCoordinator(id);
         return ResponseEntity.noContent().build();
     }
