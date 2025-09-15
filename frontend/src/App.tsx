@@ -1,15 +1,12 @@
-import { useState } from 'react'
-import './App.css'
-import CreatePage from './pages/CreatePage'
+import "./App.css";
+import LandingPage from "./pages/landingPage";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <CreatePage />
+      <LandingPage />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
