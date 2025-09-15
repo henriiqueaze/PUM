@@ -22,4 +22,10 @@ public class RestExceptionHandler {
         RestErrorMessage threatMessage = new RestErrorMessage(LocalDateTime.now(), HttpStatus.BAD_REQUEST, exception.getMessage(), exception.getLocalizedMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(threatMessage);
     }
+
+    @ExceptionHandler(InvalidJWTAuthenticationException.class)
+    private ResponseEntity<RestErrorMessage> invalidJWTAuthenticationHandler(InvalidJWTAuthenticationException exception, HttpServletRequest request) {
+        RestErrorMessage threatMessage = new RestErrorMessage(LocalDateTime.now(), HttpStatus.FORBIDDEN, exception.getMessage(), exception.getLocalizedMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(threatMessage);
+    }
 }
