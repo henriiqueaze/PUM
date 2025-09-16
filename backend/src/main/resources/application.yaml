@@ -24,14 +24,3 @@ security:
     token:
       secret-key: 53cr37
       expiration-length: 3600000
-
-logging:
-  level:
-    root: DEBUG
-    org.springframework: DEBUG
-    org.springframework.web: DEBUG
-    org.springframework.web.servlet.DispatcherServlet: DEBUG
-    org.springframework.http.converter: DEBUG
-    org.springframework.security: DEBUG
-    org.apache.catalina: DEBUG
-

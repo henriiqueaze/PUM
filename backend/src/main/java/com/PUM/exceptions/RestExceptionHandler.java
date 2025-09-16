@@ -24,8 +24,14 @@ public class RestExceptionHandler {
     }
 
     @ExceptionHandler(InvalidJWTAuthenticationException.class)
-    private ResponseEntity<RestErrorMessage> invalidJWTAuthenticationHandler(InvalidJWTAuthenticationException exception, HttpServletRequest request) {
-        RestErrorMessage threatMessage = new RestErrorMessage(LocalDateTime.now(), HttpStatus.FORBIDDEN, exception.getMessage(), exception.getLocalizedMessage(), request.getRequestURI());
+    private ResponseEntity<RestErrorMessage> invalidJwtAuthenticationHandler (InvalidJWTAuthenticationException exception, HttpServletRequest request) {
+        RestErrorMessage threatMessage = new RestErrorMessage(LocalDateTime.now(), HttpStatus.FORBIDDEN, "Invalid JWT Authentication", exception.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(threatMessage);
+    }
+
+    @ExceptionHandler(Exception.class)
+    private ResponseEntity<RestErrorMessage> exceptionHandler (Exception exception, HttpServletRequest request) {
+        RestErrorMessage threatMessage = new RestErrorMessage(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR, "Invalid JWT Authentication", exception.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(threatMessage);
     }
 }

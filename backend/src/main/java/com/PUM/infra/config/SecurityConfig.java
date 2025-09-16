@@ -1,5 +1,6 @@
 package com.PUM.infra.config;
 
+
 import com.PUM.infra.security.JwtTokenFilter;
 import com.PUM.infra.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import java.util.HashMap;
 import java.util.Map;
 
-@Configuration
 @EnableWebSecurity
+@Configuration
 public class SecurityConfig {
 
     @Autowired
@@ -29,8 +30,8 @@ public class SecurityConfig {
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder("", 8, 185000, Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA1);
         Map<String, PasswordEncoder> encoders = new HashMap<>();
+        PasswordEncoder pbkdf2Encoder = new Pbkdf2PasswordEncoder("", 8, 185000, Pbkdf2PasswordEncoder.SecretKeyFactoryAlgorithm.PBKDF2WithHmacSHA256);
         encoders.put("pbkdf2", pbkdf2Encoder);
         DelegatingPasswordEncoder passwordEncoder = new DelegatingPasswordEncoder("pbkdf2", encoders);
 
@@ -46,29 +47,21 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         JwtTokenFilter filter = new JwtTokenFilter(tokenProvider);
-
         return http
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(
-                        authorizeHttpRequests -> authorizeHttpRequests
-                                .requestMatchers(
+                        authorizeHttpRequests -> authorizeHttpRequests.requestMatchers(
                                         "/auth/signIn",
                                         "/auth/login",
                                         "/auth/refresh/**",
                                         "/swagger-ui/**",
-                                        "/swagger-ui.html",
-                                        "/v3/api-docs/**",
-                                        "/v3/api-docs.yaml"
+                                        "/v3/api-docs/**"
                                 ).permitAll()
-                                .requestMatchers(
-                                        "/coordinator/**",
-                                        "/course/**",
-                                        "/student/**"
-                                ).authenticated()
                                 .requestMatchers("/users").denyAll()
+                                .anyRequest().authenticated()
                 )
                 .cors(cors -> {})
                 .build();
