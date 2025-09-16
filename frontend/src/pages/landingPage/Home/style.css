@@ -97,7 +97,30 @@ body {
   background-color: #e5b400;
 }
 
-/* Section about-us */
+/* Section about-us ~tutu */
 .about-us{
+  color: #212121;
   background-color: #F5F5F5;
+  padding-top: 45px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.title_container{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 100px;
+}
+
+.title{
+  width: 10%;
+  border-bottom: 3px solid #1E88E5;
+  border-radius: 2px;
+}
+
+.title p{
+  font-size: 2.2em;
+  font-weight: 200;
 }

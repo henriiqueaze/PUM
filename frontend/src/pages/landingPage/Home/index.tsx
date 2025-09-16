@@ -5,7 +5,9 @@ function Home() {
     <div className="home-container">
       <header className="header">
         <div className="logo-container">
-          <img src="/src/assets/UNIFIP.svg" alt="Logo" className="logo" />
+          <a href="https://www.unifip.edu.br/" target="_blank">
+            <img src="/src/assets/UNIFIP.svg" alt="Logo" className="logo" />
+          </a>
         </div>
         <nav className="nav-links">
           <a href="#about">Sobre</a>
@@ -22,6 +24,7 @@ function Home() {
             className="fipinho-image"
           />
         </div>
+          <a href="http://"></a>
         <div className="hero-content">
           <h1 className="hero-title">Plataforma Universitária de Monitoria</h1>
           <p className="hero-description">
@@ -29,6 +32,17 @@ function Home() {
             rápida em diversas disciplinas.
           </p>
           <button className="hero-button">Entrar</button>
+        </div>
+      </section>
+
+      <section className="about-us">
+        <div className="title_container">
+          <div className="title">
+            <p>Sobre</p>
+          </div>
+        </div>
+        <div className="content_about_us">
+          <h1>alo</h1>
         </div>
       </section>
     </div>
