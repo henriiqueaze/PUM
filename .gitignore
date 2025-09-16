@@ -138,7 +138,9 @@ pnpm-debug.log*
 # Lockfile (usually tracked, so not ignored) - do NOT ignore package-lock.json/yarn.lock unless desired.
 
 # Environment files (include .env as requested)
-
+.env
+.env.*
+**/.env
 
 # Vite / local dev
 .vscode/
