@@ -4,7 +4,6 @@
   align-items: center;
   padding: 20px 40px;
   background-color: transparent;
-  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -27,10 +26,11 @@ body {
 }
 
 .nav-links a {
+  font-size: 18px;
   margin-left: 200px;
   text-decoration: none;
   color: #fff;
-  font-weight: 200;
+  font-weight: 300;
   padding: 5px 40px;
 }
 
@@ -41,12 +41,11 @@ body {
 .hero-image {
   display: flex;
   justify-content: center;
-  align-items: center;
   width: 40%;
 }
 
 .fipinho-image {
-  max-width: 500px;
+  max-width: 75vh;
   height: auto;
   margin-top: 106px;
 }
@@ -54,9 +53,8 @@ body {
 .hero-section {
   display: flex;
   justify-content: space-around;
-  width: 100vw;
+  width: 100%;
   align-items: center;
-  padding: 50px 0px;
   min-height: calc(
     100vh - 80px
   ); /* garante que a seção ocupe o restante da tela */
@@ -97,4 +95,9 @@ body {
 
 .hero-button:hover {
   background-color: #e5b400;
+}
+
+/* Section about-us */
+.about-us{
+  background-color: #F5F5F5;
 }
