@@ -42,7 +42,29 @@ function Home() {
           </div>
         </div>
         <div className="content_about_us">
-          <h1>alo</h1>
+          <div className="first_content">
+            <div className="first_text_area">
+              <h1>UNIFIP - Patos PB</h1>
+              <p>Lorem ipsum dolor sit ametsadasdasdasdsada</p>
+            </div>
+            <div className="first_img_area">
+              <img src="/src/assets/unifip01.png" alt="" />
+            </div>
+          </div>
+          <div className="second_content">
+            <div className="second_img_area">
+                <img src="/src/assets/unifip02.png" alt="" />
+                <img src="/src/assets/unifip03.png" alt="" />
+            </div>
+            <div className="second_text_area">
+              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </div>
+            <div className="button_see_more">
+              <button>
+                Conheça mais
+              </button>
+            </div>
+          </div>
         </div>
       </section>
     </div>
