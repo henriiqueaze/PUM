@@ -11,6 +11,9 @@ public class TokenDTO {
     private String accessToken;
     private String refreshToken;
 
+    public TokenDTO() {
+    }
+
     public TokenDTO(String userName, Boolean active, Date created, Date expiration, String accessToken, String refreshToken) {
         this.userName = userName;
         this.active = active;
