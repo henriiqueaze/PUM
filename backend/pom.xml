@@ -15,11 +15,10 @@
 	</parent>
 
 	<!-- Project coordinates -->
-	<groupId>com.PUM</groupId>
+	<groupId>com.pum</groupId>
 	<artifactId>PUM</artifactId>
 	<version>0.0.1</version>
 	<name>PUM</name>
-	<url/>
 
 	<!-- Project properties -->
 	<properties>
@@ -49,9 +48,9 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.mysql</groupId>
-			<artifactId>mysql-connector-j</artifactId>
-			<scope>runtime</scope>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.7.3</version>
 		</dependency>
 
 		<dependency>
@@ -61,7 +60,7 @@
 
 		<dependency>
 			<groupId>org.flywaydb</groupId>
-			<artifactId>flyway-mysql</artifactId>
+			<artifactId>flyway-database-postgresql</artifactId>
 		</dependency>
 
 		<dependency>
