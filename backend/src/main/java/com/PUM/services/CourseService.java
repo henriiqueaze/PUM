@@ -5,7 +5,7 @@ import com.PUM.exceptions.IdNotFoundException;
 import com.PUM.exceptions.MandatoryValuesNotFilledInException;
 import com.PUM.infra.repositories.CourseRepository;
 import com.PUM.infra.repositories.StudentRepository;
-import com.PUM.mapper.Mapper;
+import com.PUM.mapper.GenericMapper;
 import com.PUM.model.entities.Course;
 import com.PUM.model.entities.Student;
 import com.PUM.transfer.DTOs.CourseDTO;
@@ -39,7 +39,7 @@ public class CourseService {
     public CourseDTO getCourseById(Long id) {
         var entity = repository.findById(id).orElseThrow(() -> new IdNotFoundException("Course not found!"));
 
-        var dto = Mapper.parseObject(entity, CourseDTO.class);
+        var dto = GenericMapper.parseObject(entity, CourseDTO.class);
         addHateoasLinks(dto);
         return dto;
     }
@@ -48,7 +48,7 @@ public class CourseService {
         var courses = repository.findAll(pageable);
 
         var coursesWithLinks = courses.map(course -> {
-           var dto = Mapper.parseObject(course, CourseDTO.class);
+           var dto = GenericMapper.parseObject(course, CourseDTO.class);
            addHateoasLinks(dto);
            return dto;
         });
@@ -60,10 +60,10 @@ public class CourseService {
     public CourseDTO postCourse(CourseDTO course) {
         validateFields(course);
 
-        var entity = Mapper.parseObject(course, Course.class);
+        var entity = GenericMapper.parseObject(course, Course.class);
         repository.save(entity);
 
-        var dto = Mapper.parseObject(entity, CourseDTO.class);
+        var dto = GenericMapper.parseObject(entity, CourseDTO.class);
         addHateoasLinks(dto);
         return dto;
     }
@@ -72,22 +72,22 @@ public class CourseService {
         validateFields(course);
 
         var entity = repository.findById(course.getId()).orElseThrow(() -> new IdNotFoundException("Course not found!"));
-        Mapper.mapNonNullFields(course, entity);
+        GenericMapper.mapNonNullFields(course, entity);
 
         repository.save(entity);
 
-        var dto = Mapper.parseObject(entity, CourseDTO.class);
+        var dto = GenericMapper.parseObject(entity, CourseDTO.class);
         addHateoasLinks(dto);
         return dto;
     }
 
     public CourseDTO patchCourse(Long id, CourseDTO course) {
         var entity = repository.findById(id).orElseThrow(() -> new IdNotFoundException("Course not found!"));
-        Mapper.mapNonNullFields(course, entity);
+        GenericMapper.mapNonNullFields(course, entity);
 
         repository.save(entity);
 
-        var dto = Mapper.parseObject(entity, CourseDTO.class);
+        var dto = GenericMapper.parseObject(entity, CourseDTO.class);
         addHateoasLinks(dto);
         return dto;
     }

@@ -84,9 +84,7 @@ public class AuthController {
             }
     )
     public ResponseEntity<UserCredentialsDTO> createUser(@RequestBody UserCredentialsDTO credentials) {
-        if (validateCredentials(credentials)) {
-            return ResponseEntity.badRequest().build();
-        }
+        if (validateCredentials(credentials)) return ResponseEntity.badRequest().build();
 
         var user = service.createUser(credentials);
         return ResponseEntity.status(HttpStatus.CREATED).body(user);

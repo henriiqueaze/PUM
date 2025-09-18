@@ -5,7 +5,7 @@ import com.PUM.exceptions.IdNotFoundException;
 import com.PUM.exceptions.MandatoryValuesNotFilledInException;
 import com.PUM.infra.repositories.CoordinatorRepository;
 import com.PUM.infra.repositories.CourseRepository;
-import com.PUM.mapper.Mapper;
+import com.PUM.mapper.GenericMapper;
 import com.PUM.model.entities.Coordinator;
 import com.PUM.model.entities.Course;
 import com.PUM.transfer.DTOs.CoordinatorDTO;
@@ -39,7 +39,7 @@ public class CoordinatorService {
     public CoordinatorDTO getCoordinatorById(Long id) {
         var entity = repository.findById(id).orElseThrow(() -> new IdNotFoundException("Coordinator not found!"));
 
-        var dto = Mapper.parseObject(entity, CoordinatorDTO.class);
+        var dto = GenericMapper.parseObject(entity, CoordinatorDTO.class);
         addHateoasLinks(dto);
         return dto;
     }
@@ -48,7 +48,7 @@ public class CoordinatorService {
         var coordinators = repository.findAll(pageable);
 
         var coordinatorsWithLinks = coordinators.map(coordinator -> {
-           var dto = Mapper.parseObject(coordinator, CoordinatorDTO.class);
+           var dto = GenericMapper.parseObject(coordinator, CoordinatorDTO.class);
            addHateoasLinks(dto);
            return dto;
         });
@@ -60,10 +60,10 @@ public class CoordinatorService {
     public CoordinatorDTO postCoordinator(CoordinatorDTO coordinator) {
         validateFields(coordinator);
 
-        var entity = Mapper.parseObject(coordinator, Coordinator.class);
+        var entity = GenericMapper.parseObject(coordinator, Coordinator.class);
         repository.save(entity);
 
-        var dto = Mapper.parseObject(entity, CoordinatorDTO.class);
+        var dto = GenericMapper.parseObject(entity, CoordinatorDTO.class);
         addHateoasLinks(dto);
         return dto;
     }
@@ -72,21 +72,21 @@ public class CoordinatorService {
         validateFields(coordinator);
 
         var entity = repository.findById(coordinator.getId()).orElseThrow(() -> new IdNotFoundException("Coordinator not found!"));
-        Mapper.mapNonNullFields(coordinator, entity);
+        GenericMapper.mapNonNullFields(coordinator, entity);
         repository.save(entity);
 
-        var dto = Mapper.parseObject(entity, CoordinatorDTO.class);
+        var dto = GenericMapper.parseObject(entity, CoordinatorDTO.class);
         addHateoasLinks(dto);
         return dto;
     }
 
     public CoordinatorDTO patchCoordinator(Long id, CoordinatorDTO coordinator) {
         var entity = repository.findById(id).orElseThrow(() -> new IdNotFoundException("Coordinator not found!"));
-        Mapper.mapNonNullFields(coordinator, entity);
+        GenericMapper.mapNonNullFields(coordinator, entity);
 
         repository.save(entity);
 
-        var dto = Mapper.parseObject(entity, CoordinatorDTO.class);
+        var dto = GenericMapper.parseObject(entity, CoordinatorDTO.class);
         addHateoasLinks(dto);
         return dto;
     }

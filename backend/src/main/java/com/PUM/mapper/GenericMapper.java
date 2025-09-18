@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mapper {
+public class GenericMapper {
 
     public static ModelMapper mapper = new ModelMapper();
 

@@ -2,7 +2,6 @@ package com.PUM.services;
 
 import com.PUM.infra.repositories.UserRepository;
 import com.PUM.infra.security.JwtTokenProvider;
-import com.PUM.mapper.Mapper;
 import com.PUM.model.entities.User;
 import com.PUM.transfer.DTOs.security.TokenDTO;
 import com.PUM.transfer.DTOs.security.UserCredentialsDTO;
@@ -45,13 +44,8 @@ public class AuthService {
         var user = repository.findByUserName(userName);
         TokenDTO token;
 
-        if (user != null) {
-            token = tokenProvider.refreshToken(refreshToken);
-        }
-
-        else {
-            throw new UsernameNotFoundException("Username not found!");
-        }
+        if (user != null) token = tokenProvider.refreshToken(refreshToken);
+        else throw new UsernameNotFoundException("Username not found!");
 
         return ResponseEntity.ok().body(token);
     }

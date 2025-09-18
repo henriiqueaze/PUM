@@ -29,6 +29,12 @@ public class RestExceptionHandler {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(threatMessage);
     }
 
+    @ExceptionHandler(org.springframework.security.core.userdetails.UsernameNotFoundException.class)
+    private ResponseEntity<RestErrorMessage> usernameNotFoundHandler(org.springframework.security.core.userdetails.UsernameNotFoundException exception, HttpServletRequest request) {
+        RestErrorMessage threatMessage = new RestErrorMessage(LocalDateTime.now(), HttpStatus.NOT_FOUND, "Username Not Found",  exception.getLocalizedMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(threatMessage);
+    }
+
     @ExceptionHandler(Exception.class)
     private ResponseEntity<RestErrorMessage> exceptionHandler (Exception exception, HttpServletRequest request) {
         RestErrorMessage threatMessage = new RestErrorMessage(LocalDateTime.now(), HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), exception.getLocalizedMessage(), request.getRequestURI());
