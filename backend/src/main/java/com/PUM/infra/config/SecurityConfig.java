@@ -55,6 +55,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorizeHttpRequests -> authorizeHttpRequests.requestMatchers(
                                         "/auth/signIn",
+                                        "/auth/createUser",
                                         "/auth/login",
                                         "/auth/refresh/**",
                                         "/swagger-ui/**",

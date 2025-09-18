@@ -1,4 +1,4 @@
-package com.PUM.transfer.DTOs;
+package com.PUM.transfer.DTOs.security;
 
 import java.util.Date;
 

@@ -1,8 +1,8 @@
 package com.PUM.controllers;
 
 import com.PUM.services.AuthService;
-import com.PUM.transfer.DTOs.TokenDTO;
-import com.PUM.transfer.DTOs.UserCredentialsDTO;
+import com.PUM.transfer.DTOs.security.TokenDTO;
+import com.PUM.transfer.DTOs.security.UserCredentialsDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -56,13 +56,41 @@ public class AuthController {
                     @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
             }
     )
-    public ResponseEntity<?> signIn(@PathVariable String userName, @RequestHeader("Authorization") String refreshToken) {
+    public ResponseEntity<?> refreshToken(@PathVariable String userName, @RequestHeader("Authorization") String refreshToken) {
         if (validateFields(userName, refreshToken)) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request");
 
         var token = service.refreshToken(userName, refreshToken);
         if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request");
 
         return ResponseEntity.ok().body(token);
+    }
+
+    @PostMapping(value = "/createUser")
+    @Operation(
+            summary = "Create user",
+            description = "Create a new user with username and password. Returns the created user credentials (without sensitive data).",
+            tags = {"Authentication"},
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "User credentials payload",
+                    required = true,
+                    content = @Content(schema = @Schema(implementation = UserCredentialsDTO.class))
+            ),
+            responses = {
+                    @ApiResponse(description = "Created", responseCode = "201",
+                            content = @Content(schema = @Schema(implementation = UserCredentialsDTO.class))),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Conflict", responseCode = "409", content = @Content),
+                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
+            }
+    )
+    public ResponseEntity<UserCredentialsDTO> createUser(@RequestBody UserCredentialsDTO credentials) {
+        if (validateCredentials(credentials)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        var user = service.createUser(credentials);
+        return ResponseEntity.status(HttpStatus.CREATED).body(user);
+
     }
 
     private boolean validateFields(String userName, String refreshToken) {

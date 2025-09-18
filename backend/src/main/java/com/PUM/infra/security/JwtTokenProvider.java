@@ -2,7 +2,7 @@ package com.PUM.infra.security;
 
 
 import com.PUM.exceptions.InvalidJWTAuthenticationException;
-import com.PUM.transfer.DTOs.TokenDTO;
+import com.PUM.transfer.DTOs.security.TokenDTO;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
