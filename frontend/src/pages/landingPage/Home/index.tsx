@@ -3,38 +3,41 @@ import "./style.css";
 function Home() {
   return (
     <div className="home-container">
-      <header className="header">
-        <div className="logo-container">
-          <a href="https://www.unifip.edu.br/" target="_blank">
-            <img src="/src/assets/UNIFIP.svg" alt="Logo" className="logo" />
-          </a>
-        </div>
-        <nav className="nav-links">
-          <a href="#about">Sobre</a>
-          <a href="#contact">Contatos</a>
-          <a href="#faq">FAQ</a>
-        </nav>
-      </header>
+      <div className="main-content">
+        <header className="header">
+          <div className="logo-container">
+            <a href="https://www.unifip.edu.br/" target="_blank">
+              <img src="/src/assets/UNIFIP.svg" alt="Logo" className="logo" />
+            </a>
+          </div>
+          <nav className="nav-links">
+            <a href="#about">Sobre</a>
+            <a href="#contact">Contatos</a>
+            <a href="#faq">FAQ</a>
+          </nav>
+        </header>
 
-      <section className="hero-section">
-        <div className="hero-image">
-          <img
-            src="/src/assets/fipinhoLandingPage.png"
-            alt="Mascote Fipinho, a coruja"
-            className="fipinho-image"
-          />
-        </div>
-        <a href="http://"></a>
-        <div className="hero-content">
-          <h1 className="hero-title">Plataforma Universitária de Monitoria</h1>
-          <p className="hero-description">
-            Conecte-se com monitores e receba apoio acadêmico de forma prática e
-            rápida em diversas disciplinas.
-          </p>
-          <button className="hero-button">Entrar</button>
-        </div>
-      </section>
-
+        <section className="hero-section">
+          <div className="hero-image">
+            <img
+              src="/src/assets/fipinhoLandingPage.png"
+              alt="Mascote Fipinho, a coruja"
+              className="fipinho-image"
+            />
+          </div>
+          <a href="http://"></a>
+          <div className="hero-content">
+            <h1 className="hero-title">
+              Plataforma Universitária de Monitoria
+            </h1>
+            <p className="hero-description">
+              Conecte-se com monitores e receba apoio acadêmico de forma prática
+              e rápida em diversas disciplinas.
+            </p>
+            <button className="hero-button">Entrar</button>
+          </div>
+        </section>
+      </div>
       <section className="about-us">
         <div className="title_container">
           <div className="title">
@@ -76,9 +79,53 @@ function Home() {
       </section>
 
       <section className="contact-us">
-        <div className="title_container">
-          <div className="title">
-            <p>Contatos</p>
+        <div className="info-section">
+          <h1>O seu feedback nos ajuda a melhorar!</h1>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non
+            risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing
+            nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas
+            ligula massa, varius a, semper congue, euismod non, mi.
+          </p>
+        </div>
+        <div className="contact-card">
+          <div className="form-section">
+            <form className="contact-form">
+              <div className="form-group">
+                <label htmlFor="name">Nome</label>
+                <input type="text" id="name" placeholder="Digite seu nome" />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">E-mail</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Digite seu e-mail"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="category">Categoria</label>
+                <select id="category">
+                  <option value="monitor">Monitor</option>
+                  <option value="professor">Professor</option>
+                  <option value="aluno">Aluno</option>
+                  <option value="coordenador">Coordenador</option>
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="message">Mensagem</label>
+                <textarea
+                  id="message"
+                  placeholder="Achei um bug na plataforma"
+                ></textarea>
+              </div>
+              <div className="button_submit">
+                <button type="submit">Enviar</button>
+              </div>
+              
+            </form>
           </div>
         </div>
       </section>
