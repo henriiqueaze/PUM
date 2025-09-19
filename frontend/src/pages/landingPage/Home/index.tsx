@@ -77,7 +77,6 @@ function Home() {
           </div>
         </div>
       </section>
-
       <section className="contact-us">
         <div className="info-section">
           <h1>O seu feedback nos ajuda a melhorar!</h1>
@@ -124,11 +123,19 @@ function Home() {
               <div className="button_submit">
                 <button type="submit">Enviar</button>
               </div>
-              
             </form>
           </div>
         </div>
       </section>
+      <section className="FAQ">
+        <div className="fipinho">
+          <img
+            src="/src/assets/fipinhoDesk.png"
+            alt="Mascote Fipinho, a coruja"
+          />
+        </div>
+      </section>
+      <footer></footer>
     </div>
   );
 }
