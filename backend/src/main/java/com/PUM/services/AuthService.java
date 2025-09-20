@@ -30,24 +30,21 @@ public class AuthService {
     @Autowired
     private UserRepository repository;
 
-    public ResponseEntity<TokenDTO> signIn(UserCredentialsDTO credentials) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentials.getUserName(), credentials.getPassword()));
+    public TokenDTO signIn(UserCredentialsDTO credentials) {
+        authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(credentials.getUserName(), credentials.getPassword())
+        );
 
         var user = repository.findByUserName(credentials.getUserName());
         if (user == null) throw new UsernameNotFoundException("Username not found!");
 
-        var token = tokenProvider.createAccessToken(credentials.getUserName(), user.getRoles());
-        return ResponseEntity.ok().body(token);
+        return tokenProvider.createAccessToken(credentials.getUserName(), user.getRoles());
     }
 
-    public ResponseEntity<TokenDTO> refreshToken(String userName, String refreshToken) {
+    public TokenDTO refreshToken(String userName, String refreshToken) {
         var user = repository.findByUserName(userName);
-        TokenDTO token;
-
-        if (user != null) token = tokenProvider.refreshToken(refreshToken);
-        else throw new UsernameNotFoundException("Username not found!");
-
-        return ResponseEntity.ok().body(token);
+        if (user == null) throw new UsernameNotFoundException("Username not found!");
+        return tokenProvider.refreshToken(refreshToken);
     }
 
     public UserCredentialsDTO createUser(UserCredentialsDTO user) {

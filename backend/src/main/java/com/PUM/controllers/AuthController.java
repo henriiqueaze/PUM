@@ -2,6 +2,7 @@ package com.PUM.controllers;
 
 import com.PUM.services.AuthService;
 import com.PUM.transfer.DTOs.security.TokenDTO;
+import com.PUM.transfer.response.ApiResponseBody;
 import com.PUM.transfer.DTOs.security.UserCredentialsDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,49 +23,62 @@ public class AuthController {
     @Autowired
     private AuthService service;
 
-    @PostMapping(value = "/signIn")
+    @PostMapping("/signIn")
     @Operation(
-            summary = "Sign in",
-            description = "Authenticate user and return access and refresh tokens.",
-            tags = {"Authentication"},
-            responses = {
-                    @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = TokenDTO.class))),
-                    @ApiResponse(description = "Forbidden", responseCode = "403", content = @Content),
-                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
-            }
+        summary = "Sign in",
+        description = "Authenticate user and return access and refresh tokens.",
+        tags = {"Authentication"},
+        responses = {
+            @ApiResponse(description = "Success", responseCode = "200",
+                content = @Content(schema = @Schema(implementation = TokenDTO.class))),
+            @ApiResponse(description = "Forbidden", responseCode = "403", content = @Content),
+            @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
+        }
     )
-    public ResponseEntity<?> signIn(@RequestBody UserCredentialsDTO credentials) {
-    log.info("Tentando login para usuário {}", credentials.getUsername());
-        if (validateCredentials(credentials)) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request");
+    public ResponseEntity<ApiResponseBody<TokenDTO>> signIn(@RequestBody UserCredentialsDTO credentials) {
+        if (validateCredentials(credentials)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new ApiResponseBody<>(403, "Invalid client request", null));
+        }
 
-        var token = service.signIn(credentials);
-        if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request");
+        TokenDTO token = service.signIn(credentials);
+        // se quiser manter um guard:
+        if (token == null) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new ApiResponseBody<>(403, "Invalid client request", null));
+        }
 
-        return ResponseEntity.ok().body(token);
+        var response = new ApiResponseBody<>(200, "Success", token);
+        return ResponseEntity.ok(response);
     }
 
-    @PutMapping(value = "/refresh/{userName}")
+    @PutMapping("/refresh/{userName}")
     @Operation(
-            summary = "Refresh token",
-            description = "Refresh access token using a refresh token provided in the Authorization header (Bearer <refreshToken>).",
-            tags = {"Authentication"},
-            responses = {
-                    @ApiResponse(description = "Success", responseCode = "200",
-                            content = @Content(schema = @Schema(implementation = TokenDTO.class))),
-                    @ApiResponse(description = "Forbidden", responseCode = "403", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
-                    @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
-            }
+        summary = "Refresh token",
+        description = "Refresh access token using a refresh token provided in the Authorization header (Bearer <refreshToken>).",
+        tags = {"Authentication"},
+        responses = {
+            @ApiResponse(description = "Success", responseCode = "200",
+                content = @Content(schema = @Schema(implementation = TokenDTO.class))),
+            @ApiResponse(description = "Forbidden", responseCode = "403", content = @Content),
+            @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+            @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
+        }
     )
-    public ResponseEntity<?> refreshToken(@PathVariable String userName, @RequestHeader("Authorization") String refreshToken) {
-        if (validateFields(userName, refreshToken)) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request");
+    public ResponseEntity<ApiResponseBody<TokenDTO>> refreshToken(
+        @PathVariable String userName,
+        @RequestHeader("Authorization") String refreshToken
+    ) {
+        if (validateFields(userName, refreshToken)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(new ApiResponseBody<>(403, "Invalid client request", null));
+        }
 
-        var token = service.refreshToken(userName, refreshToken);
-        if (token == null) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request");
-
-        return ResponseEntity.ok().body(token);
+        TokenDTO token = service.refreshToken(userName, refreshToken);
+        var response = new ApiResponseBody<>(200, "Success", token);
+        return ResponseEntity.ok(response);
     }
+
 
     @PostMapping(value = "/createUser")
     @Operation(
@@ -93,10 +107,13 @@ public class AuthController {
     }
 
     private boolean validateFields(String userName, String refreshToken) {
-        return StringUtils.isBlank(userName) || StringUtils.isBlank(refreshToken);
+        return org.apache.commons.lang3.StringUtils.isBlank(userName)
+            || org.apache.commons.lang3.StringUtils.isBlank(refreshToken);
     }
 
     private boolean validateCredentials(UserCredentialsDTO credentials) {
-        return credentials == null || StringUtils.isBlank(credentials.getPassword()) || StringUtils.isBlank(credentials.getUserName());
+        return credentials == null
+            || org.apache.commons.lang3.StringUtils.isBlank(credentials.getPassword())
+            || org.apache.commons.lang3.StringUtils.isBlank(credentials.getUserName());
     }
 }
