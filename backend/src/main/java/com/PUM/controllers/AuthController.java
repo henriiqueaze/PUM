@@ -35,6 +35,7 @@ public class AuthController {
             }
     )
     public ResponseEntity<?> signIn(@RequestBody UserCredentialsDTO credentials) {
+    log.info("Tentando login para usuário {}", credentials.getUsername());
         if (validateCredentials(credentials)) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request");
 
         var token = service.signIn(credentials);
