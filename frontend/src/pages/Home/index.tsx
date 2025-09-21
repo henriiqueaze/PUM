@@ -1,4 +1,7 @@
+import DropdownComponent from "../../components/dropdownComponent";
+import { faqQuetions } from "../../utils/fragments";
 import "./style.css";
+
 
 function Home() {
   return (
@@ -127,15 +130,63 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="FAQ">
-        <div className="fipinho">
+      <section className="faq">
+        <div className="faq-image">
           <img
             src="/src/assets/fipinhoDesk.png"
             alt="Mascote Fipinho, a coruja"
           />
         </div>
+        <div className="faq-content">
+          <div className="faq-title">
+            <h1>FAQ</h1>
+            <p>Vejas as perguntas frequentes</p>
+          </div>
+          <div className="faq-container">
+            {
+              faqQuetions.map((item, index) => (
+                <DropdownComponent key={index} title={item.title} content={item.content}/>
+              ))
+            }
+          </div>
+        </div>
       </section>
-      <footer></footer>
+
+      <footer className="footer">
+        <div className="footer-container">
+          <div className="footer-top">
+            <div className="footer-logo">
+              <img src="/src/assets/UNIFIP.svg" alt="Logo da empresa" />
+            </div>
+
+            <div className="footer-links-group">
+              <div className="footer-contacts">
+                <h4>Contatos</h4>
+                <a href="#">fip@email.com</a>
+              </div>
+              <div className="footer-social">
+                <h4>Siga a gente</h4>
+                <a href="https://www.instagram.com/unifipoficial" target="_blank">Instagram</a>
+                <a href="https://www.youtube.com/@UnifipOficial" target="_blank">Youtube</a>
+              </div>
+            </div>
+          </div>
+
+          <div className="footer-divider"></div>
+
+          <div className="footer-bottom">
+            <p className="copyright">
+              © 2025 Todos os direitos reservados para os Ternurinhas
+            </p>
+            <nav className="footer-nav">
+              <a href="#">Início</a>
+              <a href="#">Sobre</a>
+              <a href="#">Contatos</a>
+              <a href="#">FAQ</a>
+            </nav>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
