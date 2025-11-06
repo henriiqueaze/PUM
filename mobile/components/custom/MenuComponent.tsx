@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
-import type { OptionMenu } from '@/app';
+import type { OptionMenu } from '@/app/(public)';
 
 type Props = {
     active: OptionMenu;
