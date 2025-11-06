@@ -1,0 +1,29 @@
+.dropdown{
+    display: flex;
+    text-align: start;
+    flex-direction: column;
+    border-bottom: 2px solid #D9D9D9;
+}
+
+.dropdown h1{
+    font-size: 20px;
+    color: #1E88E5;
+}
+
+.dropdown p{
+    color: #1D1B20;
+}
+
+.dropdown-title{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dropdronw-icon{
+    color: #1D1B20;
+}
+
+
